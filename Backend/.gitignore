@@ -1,0 +1,16 @@
+# Ignore Python virtual environment
+venv/
+ENV/
+env/
+.venv/
+.VENV/
+
+# Ignore environment variables
+.env
+.env.*
+
+_pycache_/
+__pycache__/
+
+# Ignore Firebase configuration file
+firebase.json
