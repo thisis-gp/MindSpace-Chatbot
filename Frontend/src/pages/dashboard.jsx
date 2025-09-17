@@ -114,6 +114,10 @@ const Dashboard = () => {
 
         // Check for the response text in the JSON object
         if (aiResponseJson && aiResponseJson.response) {
+          console.log("AI Response received:", aiResponseJson);
+          console.log("Audio present:", !!aiResponseJson.audio);
+          console.log("Audio length:", aiResponseJson.audio ? aiResponseJson.audio.length : 0);
+          
           // Add the AI's response to the chat
           setMessages((msgs) => [
             ...msgs,
@@ -121,24 +125,33 @@ const Dashboard = () => {
           ]);
           // If there's audio, create an audio URL and add it to the messages
           if (aiResponseJson.audio) {
-            const audioBlob = new Blob(
-              [
-                new Uint8Array(
-                  atob(aiResponseJson.audio)
-                    .split("")
-                    .map((c) => c.charCodeAt(0))
-                ),
-              ],
-              { type: "audio/wav" }
-            );
-            const audioUrl = URL.createObjectURL(audioBlob);
-            setMessages((msgs) => [
-              ...msgs,
-              {
-                sender: "ai",
-                audioUrl: audioUrl,
-              },
-            ]);
+            try {
+              // Convert base64 to binary
+              const binaryString = atob(aiResponseJson.audio);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+              }
+              
+              // Create blob with correct MIME type (gTTS generates MP3)
+              const audioBlob = new Blob([bytes], { type: "audio/mpeg" });
+              const audioUrl = URL.createObjectURL(audioBlob);
+              
+              console.log("Audio blob created:", audioBlob.size, "bytes");
+              console.log("Audio URL:", audioUrl);
+              
+              // Add audio to the same message as text
+              setMessages((msgs) => [
+                ...msgs.slice(0, -1), // Remove the last message (text only)
+                {
+                  text: aiResponseJson.response,
+                  sender: "ai",
+                  audioUrl: audioUrl,
+                },
+              ]);
+            } catch (audioError) {
+              console.error("Error processing audio:", audioError);
+            }
           }
         } else {
           setMessages((msgs) => [
@@ -332,7 +345,12 @@ const Dashboard = () => {
                         src={message.audioUrl}
                         ref={(el) => el && (el.playbackRate = 1.25)}
                         autoPlay
-                      ></audio>
+                        onError={(e) => console.error("Audio playback error:", e)}
+                        onLoadStart={() => console.log("Audio loading started")}
+                        onCanPlay={() => console.log("Audio can play")}
+                      >
+                        Your browser does not support the audio element.
+                      </audio>
                     )}
                   </div>
                 </div>
