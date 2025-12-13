@@ -7,6 +7,46 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Natural primary colors - soft sage and earth tones
+        primary: {
+          50: "#F0F7F4",
+          100: "#DCEBE3",
+          200: "#B8D7C7",
+          300: "#94C3AB",
+          400: "#70AF8F",
+          500: "#5A9B7A",
+          600: "#4A8265",
+          700: "#3A6950",
+          800: "#2A503B",
+          900: "#1A3726",
+        },
+        // Natural accent colors - earth tones (inspired by Healpoint)
+        accent: {
+          sage: "#87A96B",
+          terracotta: "#C97D60",
+          sand: "#D4B896",
+          sky: "#7FB3D3",
+          forest: "#6B8E5A",
+          stone: "#9B9B84",
+          mustard: "#F4D03F",
+          peach: "#FFB88C",
+          warmOrange: "#FF8C69",
+        },
+        // Natural status colors
+        status: {
+          well: "#6B8E5A",
+          moderate: "#D4B896",
+          attention: "#C97D60",
+          urgent: "#B85C4A",
+        },
+        // Natural mood colors
+        mood: {
+          excellent: "#6B8E5A",
+          good: "#87A96B",
+          okay: "#D4B896",
+          poor: "#C97D60",
+          bad: "#B85C4A",
+        },
         color: {
           1: "#AC6AFF",
           2: "#FFC876",
@@ -69,7 +109,71 @@ export default {
       backgroundImage: {
         "radial-gradient": "radial-gradient(var(--tw-gradient-stops))",
         "conic-gradient":
-          "conic-gradient(from 225deg, #FFC876, #79FFF7, #9F53FF, #FF98E2, #FFC876)",
+          "conic-gradient(from 225deg, #D4B896, #7FB3D3, #87A96B, #C97D60, #D4B896)",
+        "gradient-primary": "linear-gradient(135deg, #5A9B7A 0%, #87A96B 50%, #6B8E5A 100%)",
+        "gradient-secondary": "linear-gradient(135deg, #7FB3D3 0%, #6B8E5A 100%)",
+        "gradient-energetic": "linear-gradient(135deg, #D4B896 0%, #C97D60 50%, #B85C4A 100%)",
+        "gradient-calm": "linear-gradient(135deg, #7FB3D3 0%, #5A9B7A 100%)",
+        "gradient-natural": "linear-gradient(135deg, #F0F7F4 0%, #E8F0EB 50%, #DCEBE3 100%)",
+      },
+      animation: {
+        "fade-in": "fadeIn 0.5s ease-in-out",
+        "slide-up": "slideUp 0.4s ease-out",
+        "slide-down": "slideDown 0.4s ease-out",
+        "slide-left": "slideLeft 0.4s ease-out",
+        "slide-right": "slideRight 0.4s ease-out",
+        "scale-in": "scaleIn 0.3s ease-out",
+        "bounce-subtle": "bounceSubtle 0.6s ease-in-out",
+        "pulse-glow": "pulseGlow 2s ease-in-out infinite",
+        "gradient-shift": "gradientShift 3s ease infinite",
+        "float": "float 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s linear infinite",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(20px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        slideDown: {
+          "0%": { transform: "translateY(-20px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        slideLeft: {
+          "0%": { transform: "translateX(20px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        slideRight: {
+          "0%": { transform: "translateX(-20px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        scaleIn: {
+          "0%": { transform: "scale(0.9)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        bounceSubtle: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        pulseGlow: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(159, 83, 255, 0.5)" },
+          "50%": { boxShadow: "0 0 30px rgba(159, 83, 255, 0.8)" },
+        },
+        gradientShift: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-1000px 0" },
+          "100%": { backgroundPosition: "1000px 0" },
+        },
       },
     },
   },

@@ -1,4 +1,5 @@
-import { check } from "../assets";
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import { pricing } from "../constants";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
@@ -6,66 +7,106 @@ import { useAuth } from "./AuthContext";
 
 const PricingList = () => {
   const navigate = useNavigate();
-  const { user } = useAuth(); // Get user state from Auth Context
+  const { user } = useAuth();
 
   const handleGetStarted = () => {
     if (user) {
-      // If the user is already logged in, redirect to the dashboard
       navigate("/dashboard");
     } else {
-      // If the user is not logged in, redirect to the login page
-      navigate("/login");
+      navigate("/signup");
     }
   };
 
   return (
-    <div className="flex gap-[1rem] max-lg:flex-wrap">
-      {pricing.map((item) => (
-        <div
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+      {pricing.map((item, index) => (
+        <motion.div
           key={item.id}
-          className="w-[19rem] max-lg:w-full h-full px-6 bg-white border border-n-6 rounded-[2rem] lg:w-auto even:py-14 odd:py-8 odd:my-4 [&>h4]:first:text-color-2 [&>h4]:even:text-color-1 [&>h4]:last:text-color-3"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1, duration: 0.6 }}
+          whileHover={{ scale: 1.05, y: -10 }}
+          className={`relative p-8 rounded-2xl ${
+            item.id === 2
+              ? "bg-gradient-primary text-white shadow-2xl scale-105 border-4 border-primary-300"
+              : "bg-white border-2 border-gray-200 shadow-lg"
+          }`}
         >
-          <h4 className="h4 mb-4">{item.title}</h4>
+          {item.id === 2 && (
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-1 bg-yellow-400 text-yellow-900 rounded-full text-xs font-bold">
+              MOST POPULAR
+            </div>
+          )}
 
-          <p className="body-2 min-h-[4rem] mb-3 text-n-1">
+          <h4 className={`text-2xl font-bold mb-2 ${item.id === 2 ? "text-white" : "text-gray-900"}`}>
+            {item.title}
+          </h4>
+
+          <p className={`mb-6 ${item.id === 2 ? "text-white/90" : "text-gray-600"}`}>
             {item.description}
           </p>
 
-          <div className="flex items-center h-[5.5rem] mb-6">
-            {item.price && item.price !== "Free" ? ( // Check if item.price is not null and not "free"
-              <>
-                <div className="h3">₹</div>
-                <div className="text-[5.5rem] leading-none font-bold text-n-1">
+          <div className="mb-6">
+            {item.price && item.price !== "Free" ? (
+              <div className="flex items-baseline">
+                <span className={`text-2xl font-bold ${item.id === 2 ? "text-white" : "text-gray-900"}`}>
+                  ₹
+                </span>
+                <span className={`text-5xl font-bold ${item.id === 2 ? "text-white" : "text-gray-900"}`}>
                   {item.price}
-                </div>
-              </>
+                </span>
+                <span className={`ml-2 ${item.id === 2 ? "text-white/70" : "text-gray-600"}`}>
+                  /month
+                </span>
+              </div>
             ) : (
-              <div className="text-[5.5rem] leading-none font-bold text-n-1">
-                {item.price === "Free" ? "Free" : null}
+              <div className={`text-5xl font-bold ${item.id === 2 ? "text-white" : "text-gray-900"}`}>
+                Free
               </div>
             )}
           </div>
 
-          <Button
-            className="w-full mb-6"
-            onClick={handleGetStarted}
-            href={item.price ? "/login" : "mailto:am400718@gmail.com"}
-          >
-            {item.price ? "Get started" : "Contact us"}
-          </Button>
+          {item.price ? (
+            <Button
+              className="w-full mb-6"
+              onClick={handleGetStarted}
+              variant={item.id === 2 ? "outline" : "primary"}
+            >
+              Get started
+            </Button>
+          ) : (
+            <Button
+              className="w-full mb-6"
+              href="mailto:am400718@gmail.com"
+              variant={item.id === 2 ? "outline" : "primary"}
+            >
+              Contact us
+            </Button>
+          )}
 
-          <ul>
-            {item.features.map((feature, index) => (
-              <li
-                key={index}
-                className="flex items-start py-5 border-t border-n-6"
+          <ul className="space-y-4">
+            {item.features.map((feature, featureIndex) => (
+              <motion.li
+                key={featureIndex}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + featureIndex * 0.05 }}
+                className="flex items-start gap-3"
               >
-                <img src={check} width={24} height={24} alt="Check" />
-                <p className="body-2 ml-4">{feature}</p>
-              </li>
+                <Check
+                  className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                    item.id === 2 ? "text-white" : "text-primary-600"
+                  }`}
+                />
+                <span className={item.id === 2 ? "text-white/90" : "text-gray-700"}>
+                  {feature}
+                </span>
+              </motion.li>
             ))}
           </ul>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

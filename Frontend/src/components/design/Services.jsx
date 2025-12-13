@@ -1,16 +1,10 @@
-import { brainwaveWhiteSymbol, gradient, play } from "../../assets";
+import { brainwaveSymbol, play } from "../../assets";
 import ChatBubbleWing from "../../assets/svg/ChatBubbleWing";
 
 export const Gradient = () => {
   return (
     <div className="absolute top-0 -left-[10rem] w-[56.625rem] h-[56.625rem] opacity-50 mix-blend-color-dodge pointer-events-none">
-      <img
-        className="absolute top-1/2 left-1/2 w-[79.5625rem] max-w-[79.5625rem] h-[88.5625rem] -translate-x-1/2 -translate-y-1/2"
-        src={gradient}
-        width={1417}
-        height={1417}
-        alt="Gradient"
-      />
+      {/* Gradient removed - file not found */}
     </div>
   );
 };
@@ -30,10 +24,11 @@ export const VideoChatMessage = () => {
       Video generated!
       <div className="absolute left-5 -bottom-[1.125rem] flex items-center justify-center w-[2.25rem] h-[2.25rem] bg-color-1 rounded-[0.75rem]">
         <img
-          src={brainwaveWhiteSymbol}
+          src={brainwaveSymbol}
           width={26}
           height={26}
           alt="Brainwave"
+          className="brightness-0 invert"
         />
       </div>
       <p className="tagline absolute right-2.5 bottom-1 text-[0.625rem] text-n-3 uppercase">
