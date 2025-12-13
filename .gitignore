@@ -1,0 +1,111 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+*.local
+.cache/
+.parcel-cache/
+.next/
+out/
+.nuxt/
+.vuepress/dist/
+
+# IDE and Editor files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+.jest/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+.firebaserc
+firebase.json
+
+# Vercel
+.vercel
+
+# Misc
+*.pem
+*.key
+*.cert
+*.crt
+.secrets/

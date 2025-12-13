@@ -18,7 +18,22 @@
 
 @layer base {
   body {
-    @apply font-sans bg-[#d1e5e4] text-base;
+    @apply font-sans bg-gradient-to-br from-stone-50 via-slate-50 to-neutral-50 text-base;
+    background-attachment: fixed;
+  }
+  
+  /* Remove logo background */
+  img[alt="MindSpace"] {
+    background: transparent !important;
+    mix-blend-mode: multiply;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  /* Logo no background utility */
+  .logo-no-bg {
+    background: transparent !important;
+    mix-blend-mode: multiply;
+    filter: contrast(1.05) brightness(1.05);
   }
 }
 
@@ -87,12 +102,114 @@
 }
 
 .bg-image {
-  background-image: url('./assets/hero/backgroundImg.png');
-  /* Replace with your image path */
+  /* Background image removed - file not found */
   background-size: cover;
   /* Ensure the image covers the entire element */
   background-position: center;
   /* Center the image */
   background-repeat: no-repeat;
   /* Prevent image repetition */
+}
+
+/* Natural gradient backgrounds */
+@layer utilities {
+  .bg-gradient-energetic {
+    background: linear-gradient(135deg, #D4B896 0%, #C97D60 50%, #B85C4A 100%);
+  }
+  
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #5A9B7A 0%, #87A96B 50%, #6B8E5A 100%);
+  }
+  
+  .bg-gradient-secondary {
+    background: linear-gradient(135deg, #7FB3D3 0%, #6B8E5A 100%);
+  }
+  
+  .bg-gradient-calm {
+    background: linear-gradient(135deg, #7FB3D3 0%, #5A9B7A 100%);
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Hover lift effect */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Glow effect */
+  .glow {
+    box-shadow: 0 0 20px rgba(90, 155, 122, 0.3);
+  }
+  
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(90, 155, 122, 0.5);
+  }
+  
+  /* Text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #5A9B7A 0%, #87A96B 50%, #6B8E5A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Scrollbar styling */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #5A9B7A, #87A96B);
+    border-radius: 10px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #4A8265, #6B8E5A);
+  }
+  
+  /* Blob animation */
+  @keyframes blob {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+  }
+  
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
 }
