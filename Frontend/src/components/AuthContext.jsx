@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useRef } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut as firebaseSignOut } from "firebase/auth";
 
@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
+  const tokenRefreshIntervalRef = useRef(null);
 
   // Get and refresh Firebase ID token
   const getToken = async (forceRefresh = false) => {
@@ -33,9 +34,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Helper function to clear token refresh interval
+  const clearTokenRefreshInterval = () => {
+    if (tokenRefreshIntervalRef.current) {
+      clearInterval(tokenRefreshIntervalRef.current);
+      tokenRefreshIntervalRef.current = null;
+    }
+    // Also clear window reference for backward compatibility
+    if (window.tokenRefreshInterval) {
+      clearInterval(window.tokenRefreshInterval);
+      delete window.tokenRefreshInterval;
+    }
+  };
+
   // Monitor auth state changes and token refresh
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      // Clear any existing interval before creating a new one
+      clearTokenRefreshInterval();
+
       if (firebaseUser) {
         // Get initial token
         const idToken = await getToken();
@@ -45,7 +62,8 @@ export const AuthProvider = ({ children }) => {
           await getToken(true); // Force refresh
         }, 50 * 60 * 1000); // Refresh every 50 minutes (before 1 hour expiry)
 
-        // Store cleanup function
+        // Store interval reference in both ref and window (for backward compatibility)
+        tokenRefreshIntervalRef.current = refreshTokenInterval;
         window.tokenRefreshInterval = refreshTokenInterval;
 
         setUser({
@@ -61,12 +79,6 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
         localStorage.removeItem("userId");
         localStorage.removeItem("authToken");
-        
-        // Clear token refresh interval
-        if (window.tokenRefreshInterval) {
-          clearInterval(window.tokenRefreshInterval);
-          delete window.tokenRefreshInterval;
-        }
       }
       setLoading(false);
     });
@@ -81,9 +93,7 @@ export const AuthProvider = ({ children }) => {
 
     return () => {
       unsubscribe();
-      if (window.tokenRefreshInterval) {
-        clearInterval(window.tokenRefreshInterval);
-      }
+      clearTokenRefreshInterval();
     };
   }, []);
 
@@ -105,10 +115,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("authToken");
       
       // Clear token refresh interval
-      if (window.tokenRefreshInterval) {
-        clearInterval(window.tokenRefreshInterval);
-        delete window.tokenRefreshInterval;
-      }
+      clearTokenRefreshInterval();
     } catch (error) {
       console.error("Error signing out:", error);
     }

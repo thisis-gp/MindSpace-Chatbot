@@ -13,7 +13,7 @@ const PricingList = () => {
     if (user) {
       navigate("/dashboard");
     } else {
-      navigate("/login");
+      navigate("/signup");
     }
   };
 
@@ -67,14 +67,23 @@ const PricingList = () => {
             )}
           </div>
 
-          <Button
-            className="w-full mb-6"
-            onClick={handleGetStarted}
-            href={item.price ? "/signup" : "mailto:am400718@gmail.com"}
-            variant={item.id === 2 ? "outline" : "primary"}
-          >
-            {item.price ? "Get started" : "Contact us"}
-          </Button>
+          {item.price ? (
+            <Button
+              className="w-full mb-6"
+              onClick={handleGetStarted}
+              variant={item.id === 2 ? "outline" : "primary"}
+            >
+              Get started
+            </Button>
+          ) : (
+            <Button
+              className="w-full mb-6"
+              href="mailto:am400718@gmail.com"
+              variant={item.id === 2 ? "outline" : "primary"}
+            >
+              Contact us
+            </Button>
+          )}
 
           <ul className="space-y-4">
             {item.features.map((feature, featureIndex) => (
