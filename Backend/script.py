@@ -24,20 +24,22 @@ logger = logging.getLogger(__name__)
 # Load environment variables from .env file
 load_dotenv()
 
-required_env_vars = ['GEMINI_API_KEY', 'SERVICE_ACCOUNT_KEY_PATH', 'DATABASE_URL']
-for var in required_env_vars:
-    if not os.getenv(var):
-        raise ValueError(f"Missing required environment variable: {var}")
-
-with open(os.getenv('SERVICE_ACCOUNT_KEY_PATH'), 'r') as f:
-    firebase_creds = json.load(f)
-
-# Initialize Firebase only if not already initialized
-if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_creds)
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': os.getenv('DATABASE_URL')
-    })
+# Chat and Firebase are optional at start-up so the service can run unconfigured and report it clearly.
+firebase_ready = False
+service_account_path = os.getenv('SERVICE_ACCOUNT_KEY_PATH')
+if service_account_path and os.getenv('DATABASE_URL') and os.path.isfile(service_account_path):
+    with open(service_account_path, 'r') as f:
+        firebase_creds = json.load(f)
+    if not firebase_admin._apps:
+        cred = credentials.Certificate(firebase_creds)
+        firebase_admin.initialize_app(cred, {
+            'databaseURL': os.getenv('DATABASE_URL')
+        })
+    firebase_ready = True
+else:
+    logger.warning("Firebase is not configured; session reports are disabled.")
+if not os.getenv('GEMINI_API_KEY'):
+    logger.warning("GEMINI_API_KEY is not set; /chat will answer 503.")
 
 # FastAPI instance
 app = FastAPI()
@@ -254,6 +256,11 @@ conversation_storage = {}
 # FastAPI endpoint for chat
 @app.post("/chat/{user_id}")
 async def start_chat(user_id: str, user_message: UserMessage):
+    if not GEMINI_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="Chat is not configured on this server (missing GEMINI_API_KEY). If you need support now, call Tele-MANAS on 14416 (free, 24x7) or 112 in an emergency.",
+        )
     try:
         conversation_history = get_conversation_history(user_id)
         
@@ -274,6 +281,8 @@ async def start_chat(user_id: str, user_message: UserMessage):
 
         if user_input.lower() == "exit":
             try:
+                if not firebase_ready:
+                    raise RuntimeError('Firebase is not configured')
                 ref = db.reference(f'users/{user_id}')
                 ai_response = response.send_message("Generate report:")
                 ref.update({"report": ai_response.text})
