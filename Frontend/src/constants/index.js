@@ -35,11 +35,6 @@ export const navigation = [
     url: "#features",
   },
   {
-    id: "2",
-    title: "Testimonials",
-    url: "#testimonials",
-  },
-  {
     id: "3",
     title: "Roadmap",
     url: "#roadmap",
@@ -141,35 +136,13 @@ export const collabContent = [
 export const pricing = [
   {
     id: "0",
-    title: "Student",
-    description: "Basic AI support, emotional health tracking",
+    title: "Free",
+    description: "MindSpace is a free student project",
     price: "Free",
     features: [
-      "AI-powered emotional support",
+      "AI-powered emotional support chat",
       "Mood tracking and journaling",
-      "Access to basic mental health resources",
-    ],
-  },
-  {
-    id: "1",
-    title: "Premium",
-    description: "Advanced support, personalized guidance",
-    price: "499",
-    features: [
-      "Personalized emotional health insights",
-      "Access to premium resources",
-      "Priority support from mental health experts",
-    ],
-  },
-  {
-    id: "2",
-    title: "Institutional",
-    description: "Custom AI integration, advanced analytics",
-    price: null,
-    features: [
-      "Custom AI chatbot for institutions",
-      "Advanced emotional health analytics for staff",
-      "Tailored mental health resources",
+      "Not a substitute for professional help",
     ],
   },
 ];
@@ -253,7 +226,6 @@ MindSpace is an AI-powered mental wellness companion platform that provides:
 - Mood tracking and journaling tools
 - Personalized mental health insights
 - Access to mental health resources
-- Connection to licensed mental health professionals
 
 ## 3. Not a Replacement for Professional Care
 
@@ -261,9 +233,8 @@ MindSpace is an AI-powered mental wellness companion platform that provides:
 
 - Our AI services are for informational and supportive purposes only
 - If you are experiencing a mental health emergency, please contact:
-  - Emergency services (911 in the US)
-  - National Suicide Prevention Lifeline: 988
-  - Crisis Text Line: Text HOME to 741741
+  - Tele-MANAS (India, free, 24x7): 14416
+  - Emergency services in India: 112
 - Always seek the advice of qualified health providers for any mental health concerns
 
 ## 4. User Accounts and Responsibilities

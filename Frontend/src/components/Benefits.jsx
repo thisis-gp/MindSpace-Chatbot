@@ -60,7 +60,7 @@ const benefits = [
   {
     id: 6,
     title: "Professional Help",
-    text: "Connect with licensed psychologists when you need professional support. Book sessions seamlessly.",
+    text: "Pointers to professional support when you need it. Session booking is planned and not yet available.",
     icon: Users,
     gradient: "from-accent-terracotta to-primary-500",
     color: "text-orange-700",
@@ -149,7 +149,7 @@ const Benefits = () => {
                 Ready to Start Your Journey?
               </h3>
               <p className="text-white/90 mb-6 text-lg">
-                Join thousands of users who have found support and guidance
+                Start a conversation whenever you are ready
               </p>
               <Button
                 onClick={() => window.location.href = "/signup"}

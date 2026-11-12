@@ -117,7 +117,7 @@ const DistressIndicator = ({ userId, currentMessage, onEscalate }) => {
                   </li>
                   <li className="flex items-start gap-2">
                     <AlertTriangle className="w-4 h-4 text-primary-500 mt-0.5 flex-shrink-0" />
-                    <span>Contact emergency services if needed</span>
+                    <span>Call Tele-MANAS on 14416 (free, 24x7) or emergency services on 112 if needed</span>
                   </li>
                 </ul>
               </div>

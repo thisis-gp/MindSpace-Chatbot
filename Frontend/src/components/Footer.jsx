@@ -1,6 +1,7 @@
 import React from "react";
 import Section from "./Section";
 import { socials } from "../constants";
+import CrisisNotice from "./CrisisNotice";
 
 const Footer = () => {
   return (
@@ -22,6 +23,9 @@ const Footer = () => {
             </a>
           ))}
         </ul>
+      </div>
+      <div className="container mt-6">
+        <CrisisNotice />
       </div>
     </Section>
   );

@@ -4,9 +4,6 @@ import Heading from "./Heading";
 import { conversation } from "../assets";
 import {
   MessageCircle,
-  Users,
-  BarChart3,
-  Shield,
   Clock,
   Heart,
   Brain,
@@ -27,31 +24,6 @@ const offerings = [
         title: "Mood tracking & insights",
         description: "Track your emotional well-being with visual analytics and get AI-powered insights to understand your patterns over time.",
       },
-      {
-        icon: Users,
-        title: "Community of peers",
-        description: "Connect with like-minded individuals in a safe, supportive online community where you can share experiences and find understanding.",
-      },
-    ],
-  },
-  {
-    title: "For Your Organization",
-    items: [
-      {
-        icon: BarChart3,
-        title: "Wellbeing dashboard",
-        description: "Access actionable insights about your team's mental health and wellbeing through our comprehensive analytics dashboard.",
-      },
-      {
-        icon: Users,
-        title: "Expert-led resources",
-        description: "Access a network of licensed mental health professionals who can support your team with expert-led trainings and resources.",
-      },
-      {
-        icon: Shield,
-        title: "Privacy & security",
-        description: "Enterprise-grade security and privacy protection ensuring your team's data is safe and confidential.",
-      },
     ],
   },
 ];
@@ -71,8 +43,8 @@ const WhatWeOffer = () => {
             What we offer
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We provide your workforce with exceptional on-demand mental support delivered by AI and licensed, culturally-competent professionals. 
-            Help yourself and your team feel more resilient, productive, and empowered—at work and beyond.
+            MindSpace is an AI companion for emotional support, built by students in India.
+            It does not replace a doctor, therapist or counsellor.
           </p>
         </motion.div>
 
@@ -95,7 +67,7 @@ const WhatWeOffer = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 max-w-3xl mx-auto">
           {offerings.map((offering, sectionIndex) => (
             <motion.div
               key={sectionIndex}
@@ -107,7 +79,7 @@ const WhatWeOffer = () => {
             >
               <div className="mb-8">
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                  {offering.title === "For You" ? "For your workforce" : offering.title}
+                  {offering.title}
                 </h3>
                 <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent-sage rounded-full"></div>
               </div>

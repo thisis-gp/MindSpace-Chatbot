@@ -4,7 +4,6 @@ import Hero from "../components/Hero";
 import WhatWeOffer from "../components/WhatWeOffer";
 import Benefits from "../components/Benefits";
 import HowItWorks from "../components/HowItWorks";
-import Testimonials from "../components/Testimonials";
 import Roadmap from "../components/Roadmap";
 import Pricing from "../components/Pricing";
 import Footer from "../components/Footer";
@@ -240,7 +239,6 @@ const LandingPage = () => {
           <WhatWeOffer />
           <Benefits />
           <HowItWorks />
-          <Testimonials />
           <Roadmap />
           <Pricing />
         </motion.div>

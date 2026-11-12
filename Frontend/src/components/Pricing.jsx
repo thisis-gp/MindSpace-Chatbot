@@ -19,7 +19,7 @@ const Pricing = () => {
                 Get started with MindSpace
               </span>
             </div>
-            <h2 className="h2 text-gray-900">Simple, Transparent Pricing</h2>
+            <h2 className="h2 text-gray-900">Free to Use</h2>
           </div>
         </motion.div>
 

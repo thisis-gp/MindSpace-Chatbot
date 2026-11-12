@@ -19,7 +19,7 @@ The chatbot offers support, ensuring that users from diverse backgrounds can acc
 - 🤖 **AI-Powered** - Powered by Google's Gemini AI
 - 🔒 **Secure & Private** - Firebase authentication and data protection
 - 📱 **Responsive Design** - Works seamlessly on all devices
-- 🧘 **Evidence-Based** - CBT and mindfulness techniques
+- 🧘 **Technique-informed prompts** - CBT and mindfulness ideas
 - ⏰ **24/7 Availability** - Always there when you need support
 
 ## 🏗️ Architecture
@@ -191,15 +191,16 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - [ ] Research collaboration
 - [ ] Advanced AI capabilities
 
-## 📈 Impact
+## 📌 Current status
 
-- 👥 **1000+** Students Supported
-- ⏰ **24/7** Availability
-- ⭐ **4.8/5** User Rating
+- The Backend in this repo serves chat, text-to-speech and language detection only (`/chat`, `/clear-conversation`, `/supported-languages`).
+- The mood, journal, distress score, psychologist list, booking and report screens in the Frontend call endpoints that this Backend does not implement yet, so they need a backend before they work.
+- MindSpace is an AI companion and not a substitute for professional help. In India, Tele-MANAS (14416, free, 24x7) and 112 (emergency) are available.
+- The Backend starts without Firebase or Gemini credentials; chat then answers with a clear "not configured" message.
 
 ## 🏆 Recognition
 
-- 🥇 **Best Intervention Award** - TYCL Mental Health Exhibition 2024, Puducherry
+- Best Intervention Award, TYCL Mental Health Exhibition 2024, Puducherry
 
 
 ## 📄 License

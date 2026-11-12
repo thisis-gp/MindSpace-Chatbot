@@ -18,7 +18,7 @@ const PricingList = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+    <div className="grid grid-cols-1 gap-6 mt-12 max-w-md mx-auto">
       {pricing.map((item, index) => (
         <motion.div
           key={item.id}

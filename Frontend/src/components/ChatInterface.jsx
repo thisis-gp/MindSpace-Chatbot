@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import CrisisNotice from "./CrisisNotice";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import {
@@ -100,7 +101,7 @@ const ChatInterface = ({
     } catch (error) {
       console.error("Error sending message:", error);
       onNewMessage({
-        text: "Sorry, I encountered an error. Please try again.",
+        text: "Sorry, the chat service is not available right now. If you need support now, please call Tele-MANAS on 14416 (free, 24x7) or 112 in an emergency.",
         sender: "ai",
       });
     } finally {
@@ -528,6 +529,7 @@ const ChatInterface = ({
             </motion.button>
           </div>
         )}
+        <CrisisNotice className="mt-2" />
       </div>
     </div>
   );
