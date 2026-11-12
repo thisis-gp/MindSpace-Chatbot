@@ -11,7 +11,6 @@ from firebase_admin import db
 from dotenv import load_dotenv
 from io import BytesIO
 from langdetect import detect
-import numpy as np
 import json
 import re
 import base64
@@ -26,10 +25,16 @@ load_dotenv()
 
 # Chat and Firebase are optional at start-up so the service can run unconfigured and report it clearly.
 firebase_ready = False
+# Service account comes from FIREBASE_SERVICE_ACCOUNT_JSON (Vercel) or a file at SERVICE_ACCOUNT_KEY_PATH (local).
+firebase_creds = None
+service_account_json = os.getenv('FIREBASE_SERVICE_ACCOUNT_JSON')
 service_account_path = os.getenv('SERVICE_ACCOUNT_KEY_PATH')
-if service_account_path and os.getenv('DATABASE_URL') and os.path.isfile(service_account_path):
+if service_account_json:
+    firebase_creds = json.loads(service_account_json)
+elif service_account_path and os.path.isfile(service_account_path):
     with open(service_account_path, 'r') as f:
         firebase_creds = json.load(f)
+if firebase_creds and os.getenv('DATABASE_URL'):
     if not firebase_admin._apps:
         cred = credentials.Certificate(firebase_creds)
         firebase_admin.initialize_app(cred, {
@@ -331,6 +336,7 @@ async def start_chat(user_id: str, user_message: UserMessage):
         print(f"Error in chat endpoint: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")
 
+@app.get("/health")
 @app.get("/")
 async def health_check():
     return {"status": "healthy", "message": "MindSpace API is running"}

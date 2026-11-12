@@ -16,6 +16,7 @@ pnpm-lock.yaml
 .env.test.local
 .env.production.local
 .env.*
+!.env.example
 
 # Python
 __pycache__/
@@ -109,3 +110,6 @@ firebase.json
 *.cert
 *.crt
 .secrets/
+
+.vercel
+.env*

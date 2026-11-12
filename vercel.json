@@ -1,0 +1,10 @@
+{
+  "framework": null,
+  "buildCommand": "npm install --prefix Frontend && npm run build --prefix Frontend",
+  "outputDirectory": "Frontend/dist",
+  "functions": { "api/index.py": { "maxDuration": 60, "includeFiles": "Backend/**" } },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

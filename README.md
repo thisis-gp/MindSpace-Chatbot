@@ -28,7 +28,7 @@ The chatbot offers support, ensuring that users from diverse backgrounds can acc
 MINDSPACE/
 ├── 🖥️  Frontend/          # React.js web application
 ├── ⚙️  Backend/           # FastAPI Python server
-├── 🐳 Docker/             # Containerization files
+├── 🔌 api/                # Vercel Python function entry
 ├── 🚀 CI/CD/              # GitHub Actions workflows
 └── 📚 Documentation/      # Project documentation
 ```
@@ -89,36 +89,27 @@ MINDSPACE/
    npm run dev
    ```
 
-## 🐳 Docker Deployment
+## 🌐 Deployment (Vercel only)
 
-### Using Docker Compose
-```bash
-docker-compose up --build
-```
+Live: https://mindspace-chatbot-iota.vercel.app
 
-### Individual Services
-```bash
-# Backend only
-cd Backend && docker build -t mindspace-backend . && docker run -p 8000:8000 mindspace-backend
+One Vercel project serves both parts from the repo root (`vercel.json`):
 
-# Frontend only
-cd Frontend && docker build -t mindspace-frontend . && docker run -p 3000:80 mindspace-frontend
-```
+- `Frontend/` is built with Vite and served as static files. Unknown paths fall back to `index.html`.
+- `api/index.py` runs the FastAPI app from `Backend/script.py` as a Python function, reachable at `/api/...` (`/api/health`, `/api/chat/{user_id}`, `/api/clear-conversation/{user_id}`, `/api/supported-languages`). The front end calls `/api` by default, so no host is hard-coded.
+- The function has `maxDuration` 60 seconds (the longest allowed on the Hobby plan). Chat plus text-to-speech usually fits, but a slow Gemini reply can time out.
+- Conversation history is held in memory per function instance, so it can reset between requests on Vercel.
 
-## 🌐 Deployment
+Add these variable names in the Vercel dashboard (Project, Settings, Environment Variables). Values are never stored in the repo; see `.env.example`.
 
-### 🎯 Frontend (Vercel)
-1. Connect your GitHub repository to Vercel
-2. Set root directory to `Frontend`
-3. Add environment variables in Vercel dashboard
-4. Deploy! 🚀
+| Name | Used by |
+|------|---------|
+| `GEMINI_API_KEY` | chat |
+| `DATABASE_URL` | Firebase Realtime Database for session reports |
+| `FIREBASE_SERVICE_ACCOUNT_JSON` | Firebase service account (paste the JSON) |
+| `VITE_FIREBASE_APIKEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGE_SENDER_ID`, `VITE_FIREBASE_APP_ID`, `VITE_FIREBASE_MEASUREMENT_ID`, `VITE_FIREBASE_DATABASE_URL` | front-end sign-in (set before the build, then redeploy) |
 
-### ⚙️ Backend (Render)
-1. Connect your GitHub repository to Render
-2. Set root directory to `Backend`
-3. Add environment variables
-4. Upload `firebase.json` file
-5. Deploy! 🚀
+Without `GEMINI_API_KEY`, chat answers 503 with a "not configured" message and the Tele-MANAS and 112 numbers.
 
 ## 🧠 Mental Health Support
 
@@ -197,6 +188,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - The mood, journal, distress score, psychologist list, booking and report screens in the Frontend call endpoints that this Backend does not implement yet, so they need a backend before they work.
 - MindSpace is an AI companion and not a substitute for professional help. In India, Tele-MANAS (14416, free, 24x7) and 112 (emergency) are available.
 - The Backend starts without Firebase or Gemini credentials; chat then answers with a clear "not configured" message.
+- The live site is deployed on Vercel. Until the secrets above are added, chat, sign-in and session reports do not work.
 
 ## 🏆 Recognition
 

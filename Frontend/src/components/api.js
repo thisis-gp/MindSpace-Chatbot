@@ -1,7 +1,7 @@
 import axios from "axios";
 import { auth } from "../firebase";
 
-const API_BASE_URL = import.meta.env.VITE_FASTAPI_LINK; // Ensure this matches your FastAPI server URL
+const API_BASE_URL = import.meta.env.VITE_FASTAPI_LINK || "/api"; // same-origin Vercel function by default
 
 // Create axios instance with interceptors for JWT token
 const apiClient = axios.create({
